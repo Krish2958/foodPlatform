@@ -1,43 +1,60 @@
 package com.example.foodSharingg.controller;
 
-
-import com.example.foodSharingg.model.FoodGiver;
-import com.example.foodSharingg.model.FoodTaker;
-import com.example.foodSharingg.repository.FoodGiverRepository;
-import com.example.foodSharingg.repository.FoodTakerRepository;
+import com.example.foodSharingg.model.Match;
+import com.example.foodSharingg.service.MatchService;
+import com.example.foodSharingg.repository.MatchRepository;
+import com.example.foodSharingg.exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Optional;
+
 
 @RestController
-@RequestMapping("/api/find-match")
+@RequestMapping("/api/matches")
 public class MatchController {
 
     @Autowired
-    private FoodGiverRepository foodGiverRepository;
-
-    @Autowired
-    private FoodTakerRepository foodTakerRepository;
+    private MatchService matchService;
 
     @GetMapping
-    public List<FoodGiver> findMatch() {
-        List<FoodGiver> foodGivers = foodGiverRepository.findAll();
-        List<FoodTaker> foodTakers = foodTakerRepository.findAll();
+    public ResponseEntity<List<Match>> getAllMatches() {
+        List<Match> matches = matchService.getAllMatches();
+        if (matches.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(matches);
+    }
 
-        // Basic matching algorithm (for demonstration purposes)
-        // This can be improved based on specific matching criteria
+    @GetMapping("/{id}")
+    public ResponseEntity<Match> getMatchById(@PathVariable Long id) {
+        Optional<Match> match = matchService.getMatchById(id);
+        if (match.isPresent()) {
+            return ResponseEntity.ok(match.get());
+        }
+        return ResponseEntity.notFound().build();
+    }
 
-        return foodGivers.stream().filter(foodGiver -> {
-            for (FoodTaker foodTaker : foodTakers) {
-                if (foodGiver.getFoodType().equals(foodTaker.getDietaryPreference()) &&
-                        foodGiver.getLocation().equals(foodTaker.getPlace())) {
-                    return true;
-                }
-            }
-            return false;
-        }).collect(Collectors.toList());
+    @PostMapping
+    public ResponseEntity<Match> createMatch(@RequestBody Match match) {
+        Match createdMatch = matchService.createMatch(match);
+        return ResponseEntity.ok(createdMatch);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Match> updateMatch(@PathVariable Long id, @RequestBody Match matchDetails) {
+        Match updatedMatch = matchService.updateMatch(id, matchDetails);
+        return ResponseEntity.ok(updatedMatch);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteMatch(@PathVariable Long id) {
+        matchService.deleteMatch(id);
+        return ResponseEntity.noContent().build();
     }
 }
-
