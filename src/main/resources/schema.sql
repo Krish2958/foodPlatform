@@ -29,3 +29,20 @@ CREATE TABLE IF NOT EXISTS grah_laxmi (
     city VARCHAR(255),
     aadhar_number VARCHAR(255)
 );
+-- Define the item table
+CREATE TABLE item (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    quantity INT NOT NULL,
+    expiration_date DATE NOT NULL,
+    category VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE matches (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    food_giver_id BIGINT NOT NULL,
+    food_taker_id BIGINT NOT NULL,
+    date VARCHAR(255) NOT NULL
+);
+
+

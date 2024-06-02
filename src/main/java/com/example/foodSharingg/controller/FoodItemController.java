@@ -1,43 +1,52 @@
 package com.example.foodSharingg.controller;
 
-
 import com.example.foodSharingg.model.FoodItem;
 import com.example.foodSharingg.service.FoodItemService;
+
+import com.example.foodSharingg.repository.FoodItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 import java.util.Optional;
 
+
 @RestController
-@RequestMapping("/api/food-items")
+@RequestMapping("/api")
 public class FoodItemController {
 
- @Autowired
- private FoodItemService foodItemService;
+    @Autowired
+    private FoodItemService foodItemService;
 
- @PostMapping
- public FoodItem createFoodItem(@RequestBody FoodItem foodItem) {
-     return foodItemService.saveFoodItem(foodItem);
- }
+    @Autowired
+    private FoodItemRepository foodItemRepository;
 
- @GetMapping
- public List<FoodItem> getAllFoodItems() {
-     return foodItemService.getAllFoodItems();
- }
+    @GetMapping("/foodItems")
+    public List<FoodItem> getAllFoodItems() {
+        return foodItemService.getAllFoodItems();
+    }
 
- @GetMapping("/{id}")
- public Optional<FoodItem> getFoodItemById(@PathVariable Long id) {
-     return foodItemService.getFoodItemById(id);
- }
+    @GetMapping("/foodItems/{id}")
+    public Optional<FoodItem> getFoodItemById(@PathVariable Long id) {
+        return foodItemService.getFoodItemById(id);
+    }
 
- @PutMapping("/{id}")
- public FoodItem updateFoodItem(@PathVariable Long id, @RequestBody FoodItem foodItemDetails) {
-     return foodItemService.updateFoodItem(id, foodItemDetails);
- }
+    @PostMapping("/foodItems")
+    public FoodItem createFoodItem(@RequestBody FoodItem foodItem) {
+        return foodItemService.createFoodItem(foodItem);
+    }
 
- @DeleteMapping("/{id}")
- public void deleteFoodItem(@PathVariable Long id) {
-     foodItemService.deleteFoodItem(id);
- }
+    @PutMapping("/foodItems/{id}")
+    public FoodItem updateFoodItem(@PathVariable Long id, @RequestBody FoodItem foodItemDetails) {
+        return foodItemService.updateFoodItem(id, foodItemDetails);
+    }
+
+    @DeleteMapping("/foodItems/{id}")
+    public void deleteFoodItem(@PathVariable Long id) {
+        foodItemService.deleteFoodItem(id);
+    }
 }
+
