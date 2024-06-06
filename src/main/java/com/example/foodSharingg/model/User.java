@@ -13,6 +13,7 @@ public class User {
 
     private String email;
     private String password;
+    private String role;
 
     // Getters and Setters
     public Long getId() {
@@ -33,6 +34,14 @@ public class User {
 
     public String getPassword() {
         return password;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 
     public void setPassword(String password) {

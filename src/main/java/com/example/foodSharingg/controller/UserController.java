@@ -36,6 +36,9 @@ public class UserController {
     // POST create new user
     @PostMapping
     public User createUser(@RequestBody User user) {
+        if (user.getRole() == null || user.getRole().isEmpty()) {
+            user.setRole("user");
+        }
         return userRepository.save(user);
     }
 
@@ -49,6 +52,9 @@ public class UserController {
         User user = userOptional.get();
         user.setEmail(userDetails.getEmail());
         user.setPassword(userDetails.getPassword());
+        if (userDetails.getRole() != null && !userDetails.getRole().isEmpty()) {
+            user.setRole(userDetails.getRole());
+        }
         User updatedUser = userRepository.save(user);
         return ResponseEntity.ok(updatedUser);
     }
@@ -63,4 +69,5 @@ public class UserController {
         userRepository.delete(user.get());
         return ResponseEntity.noContent().build();
     }
+
 }

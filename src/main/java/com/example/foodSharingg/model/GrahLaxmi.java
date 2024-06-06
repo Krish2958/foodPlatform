@@ -16,6 +16,7 @@ public class GrahLaxmi {
     private String name;
     private String city;
     private String aadharNumber;
+    private Boolean hasBplCard;
 
     // Getters and setters
     public Long getId() {
@@ -24,6 +25,14 @@ public class GrahLaxmi {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Boolean gethasBplCard() {
+        return hasBplCard;
+    }
+
+    public void setHasBplCard(Boolean hasBplCard) {
+        this.hasBplCard = hasBplCard;
     }
 
     public String getAccountNumber() {
