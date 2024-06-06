@@ -24,4 +24,6 @@ INSERT INTO matches (food_giver_id, food_taker_id, date) VALUES (1, 2, '2024-05-
 
 INSERT INTO user (email, password) VALUES ('test@example.com', 'password');
 
+INSERT INTO user_authentication (username, password, role) VALUES ('admin', 'adminpassword', 'ROLE_ADMIN');
+INSERT INTO user_authentication (username, password, role) VALUES ('user', 'userpassword', 'ROLE_USER');
 
