@@ -1,7 +1,8 @@
 CREATE TABLE IF NOT EXISTS user (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
     email VARCHAR(255) NOT NULL,
-    password VARCHAR(255) NOT NULL
+    password VARCHAR(255) NOT NULL,
+    role VARCHAR(10) NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS food_giver (
@@ -27,5 +28,31 @@ CREATE TABLE IF NOT EXISTS grah_laxmi (
     account_number VARCHAR(255),
     name VARCHAR(255),
     city VARCHAR(255),
-    aadhar_number VARCHAR(255)
+    aadhar_number VARCHAR(255),
+    has_bpl_card  BOOLEEAN()
 );
+-- Define the item table
+CREATE TABLE item (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    quantity INT NOT NULL,
+    expiration_date DATE NOT NULL,
+    category VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE matches (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    food_giver_id BIGINT NOT NULL,
+    food_taker_id BIGINT NOT NULL,
+    date VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE user_authentication (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(255) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    role VARCHAR(255) NOT NULL
+);
+
+
+

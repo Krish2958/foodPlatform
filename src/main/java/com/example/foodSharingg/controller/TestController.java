@@ -7,11 +7,19 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.foodSharingg.model.FoodGiver;
 import com.example.foodSharingg.repository.FoodGiverRepository;
 
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.example.foodSharingg.service.FoodGiverService;
+
 @RestController
 public class TestController {
 
     @Autowired
     private FoodGiverRepository foodGiverRepository;
+
+     @Autowired
+    private FoodGiverService foodGiverService;
 
     @GetMapping("/test")
     public String test() {
